@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES6",
     "module": "CommonJS",
-    "rootDir": "backend/src",
+    "rootDir": "src",
     "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true,
@@ -10,7 +10,7 @@
     "forceConsistentCasingInFileNames": true,
     "types": ["node"]
   },
-  "include": ["backend/src/app.ts"],
+  "include": ["src/app.ts"],
   "exclude": ["node_modules"],
   "ts-node": {
         // Tell ts-node CLI to install the --loader automatically
