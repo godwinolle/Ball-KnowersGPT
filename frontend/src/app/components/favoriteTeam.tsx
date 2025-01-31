@@ -38,23 +38,4 @@ const FavoriteTeam = () => {
     )
 }
 
-const getNextFixture = async () => {
-    const url = 'https://api-football-v1.p.rapidapi.com/v3/fixtures?league=39&season=2024&team=40&next=1';
-    const options = {
-        method: 'GET',
-        headers: {
-            'x-rapidapi-key': '1c19e85651msh616f36790c5f4a5p117a06jsneedad279cef1',
-            'x-rapidapi-host': 'api-football-v1.p.rapidapi.com'
-        }
-    };
-
-    try {
-        const response = await fetch(url, options);
-        const result = await response.text();
-        console.log(result);
-    } catch (error) {
-        console.error(error);
-    }
-}
-
 export default FavoriteTeam

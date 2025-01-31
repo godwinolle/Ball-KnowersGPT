@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { FaArrowCircleRight } from "react-icons/fa";
+import { API_URL } from '@/lib/const'
 
 import Spinner from './Spinner';
 
@@ -40,7 +41,7 @@ const Chat = () => {
                 body: JSON.stringify(userPromptRequest)
             }
 
-            const response = await fetch(`http://localhost:3000/openai/chat/`, options)
+            const response = await fetch(API_URL, options)
             const data = await response.json()
  
             const { success, chatBot } = data
