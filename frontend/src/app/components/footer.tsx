@@ -1,7 +1,7 @@
 'use client'
 
 const Footer = () => {
-    let year: number = new Date().getFullYear()
+    const year: number = new Date().getFullYear()
 
     return(
         <footer className="w-full absolute bottom-0 text-center py-8">

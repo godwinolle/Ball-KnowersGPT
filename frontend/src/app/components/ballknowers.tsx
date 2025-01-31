@@ -2,8 +2,6 @@
 
 import { SiPremierleague } from "react-icons/si";
 
-const descriptions = ['Ball Knowers', '']
-
 const BallKnowers = () => {
     return(
         <div className="mb-[2rem]">

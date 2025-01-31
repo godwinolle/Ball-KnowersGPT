@@ -26,7 +26,7 @@ const Chat = () => {
     ]
 
     const chatWithAI = async (prompt: string) => {
-        let userPromptRequest = {
+        const userPromptRequest = {
             chat: prompt
         } 
 
@@ -44,7 +44,7 @@ const Chat = () => {
             const response = await fetch(API_URL, options)
             const data = await response.json()
  
-            const { success, chatBot } = data
+            const { chatBot } = data
 
             setIsLoading(false)
             setAIResponse(chatBot)
