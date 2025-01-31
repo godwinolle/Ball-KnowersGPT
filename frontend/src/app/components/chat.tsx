@@ -103,7 +103,7 @@ const Chat = () => {
                 ))
                 }
             </div>
-            <div className='p-2 w-[90%] md:w-[50%] mx-auto mb-[3rem] flex gap-2 overflow-x-auto scrollbar-hide' style={{ scrollSnapType: "x mandatory" }}>
+            <div className='p-2 w-[90%] md:w-[50%] mx-auto mb-[2rem] flex gap-2 overflow-x-auto scrollbar-hide' style={{ scrollSnapType: "x mandatory" }}>
                 { suggestionsListTwo.map((suggestion, i) => (
                     <div 
                         key={i} 
