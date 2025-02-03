@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "ball knowers prem league football",
   "type": "module",
-  "main": "src/app.ts",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "nodemon build/app.js",
     "dev": "nodemon --exec tsx src/app.ts",
     "build": "tsc",
-    "start": "node dist/app.js"
+    "start": "node build/app.js"
   },
   "author": "godwinolle",
   "license": "ISC",

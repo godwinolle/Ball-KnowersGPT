@@ -3,14 +3,14 @@
     "target": "ES6",
     "module": "CommonJS",
     "rootDir": "src",
-    "outDir": "./dist",
+    "outDir": "./build",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "types": ["node"]
   },
-  "include": ["src/app.ts"],
+  "include": ["src/app.ts", "src/**/*.ts"],
   "exclude": ["node_modules"],
   "ts-node": {
         // Tell ts-node CLI to install the --loader automatically
