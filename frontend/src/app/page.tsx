@@ -9,12 +9,14 @@ import Footer from './components/footer';
 
 export default function App() {
   return (
-    <div className={`${ poppins.className }`}>
-      <FavoriteTeam />
-      <div className='w-[90%] mx-auto mt-[5rem]'>
-        <BallKnowers />
-        <Chat />
-      </div>
+    <div className={`${ poppins.className } min-h-screen flex flex-col`}>
+      <main className="flex-grow">
+        <FavoriteTeam />
+        <div className='w-[90%] mx-auto mt-[5rem]'>
+          <BallKnowers />
+          <Chat />
+        </div>
+      </main>
 
       <Footer />
     </div>

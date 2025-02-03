@@ -71,7 +71,7 @@ const Chat = () => {
         <>
             <form onSubmit={ handleUserPrompt } className='border p-2 w-[90%] md:w-[50%] mx-auto my-auto rounded-xl flex justify-between mb-[1rem]'>
                 <input
-                    className='border-none outline-none w-[80%] p-2'
+                    className='border-none outline-none w-[80%] p-2 text-sm'
                     style={{ backgroundColor: 'inherit' }}
                     placeholder={`Let's talk football bruv!`}
                     value={ prompt }
@@ -100,22 +100,11 @@ const Chat = () => {
                                 { suggestion }
                             </div>
                         ))}
-
-                        { suggestionsListOne.map((suggestion, i) => (
-                            <div 
-                                key={i} 
-                                className="cursor-pointer bg-gray-800 text-white px-1 md:px-3 py-1 text-sm rounded-full whitespace-nowrap flex-shrink-0 hover:bg-gray-700 transition-all duration-200" 
-                                style={{ scrollSnapAlign: "center" }}
-                                onClick={ () => handleSuggestionClick(suggestion) }
-                                aria-hidden="true">
-                                { suggestion }
-                            </div>
-                        ))}
                     </div>
                 </div>
             </div>
 
-            <div className='p-2 w-[90%] md:w-[50%] mx-auto flex justify-center'>
+            <div className='p-2 w-[90%] md:w-[50%] mx-auto flex justify-center text-sm'>
                 {
                     isLoading ? (<Spinner />) : aiResponse 
                 }
