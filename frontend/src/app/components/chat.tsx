@@ -16,14 +16,11 @@ const Chat = () => {
     const suggestionsListOne = [
         "What's the latest football news?",
         "What are the rules of football?",
-        "Who won the last Premier League?"
-    ];
-
-    const suggestionsListTwo = [
+        "Who won the last Premier League?",
         "Tell me about the best players in the premier league.",
         "How does VAR work?",
         "How many teams are in the Premier League right now?"
-    ]
+    ];
 
     const chatWithAI = async (prompt: string) => {
         const userPromptRequest = {
@@ -91,30 +88,31 @@ const Chat = () => {
                 </button>
             </form>
             { error && <div className="text-red-500 mb-2 w-[90%] md:w-[50%] mx-auto">{error}</div> }
+            <div className='mx-auto w-full md:w-[70%]'>
+                <div className='p-2 flex gap-2 overflow-x-auto scrollbar-hide [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]' style={{ scrollSnapType: "x mandatory" }}>
+                    <div className='animate-infinite-scroll flex gap-2'>
+                        { suggestionsListOne.map((suggestion, i) => (
+                            <div 
+                                key={i} 
+                                className="cursor-pointer bg-gray-800 text-white px-1 md:px-3 py-1 text-sm rounded-full whitespace-nowrap flex-shrink-0 hover:bg-gray-700 transition-all duration-200" 
+                                style={{ scrollSnapAlign: "center" }}
+                                onClick={ () => handleSuggestionClick(suggestion) }>
+                                { suggestion }
+                            </div>
+                        ))}
 
-            <div className='p-2 w-[90%] md:w-[50%] mx-auto flex gap-2 overflow-x-auto scrollbar-hide' style={{ scrollSnapType: "x mandatory" }}>
-                { suggestionsListOne.map((suggestion, i) => (
-                    <div 
-                        key={i} 
-                        className="cursor-pointer bg-gray-800 text-white px-3 py-1 text-sm rounded-full whitespace-nowrap flex-shrink-0 hover:bg-gray-700 transition-all duration-200" 
-                        style={{ scrollSnapAlign: "center" }}
-                        onClick={ () => handleSuggestionClick(suggestion) }>
-                        { suggestion }
+                        { suggestionsListOne.map((suggestion, i) => (
+                            <div 
+                                key={i} 
+                                className="cursor-pointer bg-gray-800 text-white px-1 md:px-3 py-1 text-sm rounded-full whitespace-nowrap flex-shrink-0 hover:bg-gray-700 transition-all duration-200" 
+                                style={{ scrollSnapAlign: "center" }}
+                                onClick={ () => handleSuggestionClick(suggestion) }
+                                aria-hidden="true">
+                                { suggestion }
+                            </div>
+                        ))}
                     </div>
-                ))
-                }
-            </div>
-            <div className='p-2 w-[90%] md:w-[50%] mx-auto mb-[2rem] flex gap-2 overflow-x-auto scrollbar-hide' style={{ scrollSnapType: "x mandatory" }}>
-                { suggestionsListTwo.map((suggestion, i) => (
-                    <div 
-                        key={i} 
-                        className="cursor-pointer bg-gray-800 text-white px-3 py-1 text-sm rounded-full whitespace-nowrap flex-shrink-0 hover:bg-gray-700 transition-all duration-200" 
-                        style={{ scrollSnapAlign: "center" }}
-                        onClick={ () => handleSuggestionClick(suggestion) }>
-                        { suggestion }
-                    </div>
-                ))
-                }
+                </div>
             </div>
 
             <div className='p-2 w-[90%] md:w-[50%] mx-auto flex justify-center'>
