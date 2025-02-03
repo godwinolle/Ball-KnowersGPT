@@ -88,7 +88,7 @@ const Chat = () => {
                 </button>
             </form>
             { error && <div className="text-red-500 mb-2 w-[90%] md:w-[50%] mx-auto">{error}</div> }
-            <div className='mx-auto w-full md:w-[70%]'>
+            <div className='mx-auto w-full md:w-[60%]'>
                 <div className='p-2 flex gap-2 overflow-x-auto scrollbar-hide [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]' style={{ scrollSnapType: "x mandatory" }}>
                     <div className='animate-infinite-scroll flex gap-2'>
                         { suggestionsListOne.map((suggestion, i) => (
