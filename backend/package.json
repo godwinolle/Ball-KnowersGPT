@@ -2,7 +2,6 @@
   "name": "ball-knowers",
   "version": "1.0.0",
   "description": "ball knowers prem league football",
-  "type": "module",
   "main": "app.js",
   "scripts": {
     "serve": "nodemon build/app.js",
