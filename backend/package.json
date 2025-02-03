@@ -5,10 +5,9 @@
   "type": "module",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "nodemon build/app.js",
     "dev": "nodemon --exec tsx src/app.ts",
-    "build": "tsc",
+    "postinstall": "tsc",
     "start": "node build/app.js"
   },
   "author": "godwinolle",
