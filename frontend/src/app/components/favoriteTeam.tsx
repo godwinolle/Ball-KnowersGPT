@@ -1,5 +1,7 @@
 'use client'
 
+import Image from 'next/image'
+
 import { useState, useEffect } from 'react';
 import { OpponentTeam, PremierLeagueTeam, premierLeagueTeams } from '@/lib/teams';
 
@@ -11,7 +13,7 @@ const FavoriteTeam = () => {
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            const storedFavoriteName = localStorage.getItem('favoriteTeam');
+            const storedFavoriteName = localStorage.getItem('userFavoriteTeam');
             if (storedFavoriteName) {
                 setFavoriteTeam(JSON.parse(storedFavoriteName));
             }
@@ -69,7 +71,7 @@ const FavoriteTeam = () => {
 
         if (selectedFavoriteTeam) {
             setFavoriteTeam(selectedFavoriteTeam)
-            localStorage.setItem('favoriteTeam', JSON.stringify(selectedFavoriteTeam));
+            localStorage.setItem('userFavoriteTeam', JSON.stringify(selectedFavoriteTeam));
         }
     }
 
@@ -85,7 +87,7 @@ const FavoriteTeam = () => {
                 { nextOpponent && (
                     <span className="flex items-center space-x-2">
                         <p className="text-sm"> Next Match: { nextOpponent.name } </p>
-                        <img className="w-8 h-8 object-cover" src={ nextOpponent.logo } alt={ `${nextOpponent.name}'s logo` }/>
+                        <Image height={32} width={32} className="w-8 h-8 object-cover" src={ nextOpponent.logo } alt={ `${nextOpponent.name}'s logo` }/>
                     </span>
                 )
                 }
