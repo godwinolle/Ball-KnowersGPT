@@ -1,5 +1,10 @@
-interface PremierLeagueTeam {
+export interface PremierLeagueTeam {
     id: number
+    name: string
+}
+
+export interface OpponentTeam {
+    logo: string,
     name: string
 }
 

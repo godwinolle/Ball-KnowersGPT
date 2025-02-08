@@ -7,7 +7,7 @@ const Footer = () => {
         <footer className="w-full relative text-center py-8">
             <p className="text-xs leading-7">
                 <span className="mr-1">&copy; { year }</span> 
-                <a href='https://www.godwincodes.com/' target="__blank">
+                <a href='https://godwin.codes/' target="__blank">
                     godwin.codes
                 </a>
             </p>

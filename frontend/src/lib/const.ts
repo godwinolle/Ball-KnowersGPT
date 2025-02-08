@@ -1,1 +1,6 @@
-export const API_URL = process.env.NEXT_PUBLIC_API_URL as string
+const API_URL = process.env.NEXT_PUBLIC_API_URL as string
+const RAPID_API_KEY = process.env.NEXT_PUBLIC_RAPID_API_KEY as string
+const RAPID_API_HOST = process.env.NEXT_PUBLIC_RAPID_API_HOST as string
+const RAPID_API_URL=process.env.NEXT_PUBLIC_RAPID_API_URL as string
+
+export { API_URL, RAPID_API_KEY, RAPID_API_HOST, RAPID_API_URL }
