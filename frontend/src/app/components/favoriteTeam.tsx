@@ -37,7 +37,6 @@ const FavoriteTeam = () => {
                     const data = await response.json()
 
                     const teamsPlaying = await data.response[0].teams
-                    console.log(teamsPlaying)
 
                     let matchInfo: OpponentTeam | null
 
