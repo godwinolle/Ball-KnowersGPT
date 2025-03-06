@@ -39,6 +39,13 @@ const Chat = () => {
             }
 
             const response = await fetch(API_URL, options)
+
+            if (!response.ok) {
+                const errorBody = await response.text()
+                setError(`I'm having some issues returning a result right now, check back later!`)
+                throw new Error(`HTTP error! status: ${response.status}, body: ${errorBody}`);
+            }
+
             const data = await response.json()
  
             const { chatBot } = data
@@ -71,7 +78,7 @@ const Chat = () => {
         <>
             <form onSubmit={ handleUserPrompt } className='border p-2 w-[90%] md:w-[50%] mx-auto my-auto rounded-xl flex justify-between mb-[1rem]'>
                 <input
-                    className='border-none outline-none w-[80%] p-2 text-sm'
+                    className='border-none outline-none w-[90%] p-2 text-sm'
                     style={{ backgroundColor: 'inherit' }}
                     placeholder={`Let's talk football bruv!`}
                     value={ prompt }

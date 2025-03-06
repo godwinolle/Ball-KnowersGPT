@@ -76,7 +76,7 @@ const FavoriteTeam = () => {
     }
 
     return(
-        <div className='mt-[1rem] w-[95%] flex justify-end'>
+        <div className='w-[95%] flex justify-end'>
             <div>
                 <select value={ favoriteTeam?.name } className='bg-gray-800 text-white px-4 py-2 focus:outline-none text-sm text-center rounded-full appearance-none cursor-pointer whitespace-nowrap mb-1' onChange={ handleFavoriteTeam }>
                     <option value="">Select Your Favorite Team</option>
