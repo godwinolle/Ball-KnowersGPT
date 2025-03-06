@@ -33,19 +33,19 @@ const Menu = () => {
                     </p>
                 </div>
                 <ul>
-                    <li className="cursor-pointer border-[1px] bg-gray-800 p-2 rounded mt-4 flex justify-start items-center gap-3 text-white">
+                    <li className="cursor-pointer border-[1px] bg-gray-800 p-2 rounded-xl mt-4 flex justify-start items-center gap-3 text-white">
                         <GiPodium /> 
                         <span>League Standings (Coming Soon)</span>
                     </li>
-                    <li className="cursor-pointer border-[1px] bg-[#1F2937] p-2 rounded mt-4 flex justify-start items-center gap-3 text-white">
+                    <li className="cursor-pointer border-[1px] bg-[#1F2937] p-2 rounded-xl mt-4 flex justify-start items-center gap-3 text-white">
                         <GiSoccerBall />
                         <span>Leading Goal Scorers (Coming Soon)</span>
                     </li>
-                    <li className="cursor-pointer border-[1px] bg-gray-800 p-2 rounded mt-4 flex justify-start items-center gap-3 text-white">
+                    <li className="cursor-pointer border-[1px] bg-gray-800 p-2 rounded-xl mt-4 flex justify-start items-center gap-3 text-white">
                         <GiSoccerKick />
                         <span>Assist Leaders (Coming Soon)</span>
                     </li>
-                    <li className="cursor-pointer border-[1px] bg-gray-800 p-2 rounded mt-4 flex justify-start items-center gap-3 text-white">
+                    <li className="cursor-pointer border-[1px] bg-gray-800 p-2 rounded-xl mt-4 flex justify-start items-center gap-3 text-white">
                         <PiSealQuestionDuotone />
                         <span>Who Am I? (Coming Soon)</span>
                     </li>
