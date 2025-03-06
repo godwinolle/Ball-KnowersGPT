@@ -39,6 +39,11 @@ const FavoriteTeam = () => {
                     const data = await response.json()
 
                     const teamsPlaying = await data.response[0].teams
+                    const fixtureResponse = await data.response[0].fixture.date
+
+                    let fixtureDate = new Date(fixtureResponse)
+                    console.log('Fixture Time', fixtureDate)
+                    console.log(fixtureDate.toString());
 
                     let matchInfo: OpponentTeam | null
 

@@ -1,7 +1,10 @@
 'use client'
 
 import { useState } from 'react';
+import { useSpeechRecognition } from 'react-speech-recognition'
+
 import { FaArrowCircleRight } from "react-icons/fa";
+import { FaMicrophone } from "react-icons/fa6";
 import { API_URL } from '@/lib/const'
 
 import Spinner from './Spinner';
@@ -11,6 +14,12 @@ const Chat = () => {
     const [aiResponse, setAIResponse] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('')
+
+    const { transcript,
+        listening,
+        resetTranscript,
+        browserSupportsSpeechRecognition
+    } = useSpeechRecognition()
 
     // Add a list of suggestions
     const suggestionsListOne = [
@@ -69,14 +78,21 @@ const Chat = () => {
 
     return(
         <>
-            <form onSubmit={ handleUserPrompt } className='border p-2 w-[90%] md:w-[50%] mx-auto my-auto rounded-xl flex justify-between mb-[1rem]'>
-                <input
-                    className='border-none outline-none w-[80%] p-2 text-sm'
-                    style={{ backgroundColor: 'inherit' }}
-                    placeholder={`Let's talk football bruv!`}
-                    value={ prompt }
-                    onChange={ (e) => setPrompt(e.target.value) }
-                />
+            <form onSubmit={ handleUserPrompt } className='border p-2 w-[90%] md:w-[50%] mx-auto my-auto rounded-xl flex justify-between items-center mb-[1rem]'>
+                <div className='flex justify-start gap-5 items-center w-[90%]'>
+                    <span className='ml-2 flex items-center justify-center cursor-pointer'>
+                        <FaMicrophone />
+                    </span>
+
+                    <input
+                        className='border-none outline-none py-2 text-sm w-full'
+                        style={{ backgroundColor: 'inherit' }}
+                        placeholder={`Let's talk football bruv!`}
+                        value={ prompt }
+                        onChange={ (e) => setPrompt(e.target.value) }
+                    />
+
+                </div>
                 <button className='mr-2' disabled={ isLoading }>
                     <div>
                         { isLoading ? <Spinner /> : (
