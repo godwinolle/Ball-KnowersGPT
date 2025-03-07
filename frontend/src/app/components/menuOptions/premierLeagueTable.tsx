@@ -44,7 +44,6 @@ const PremierLeagueTable = () => {
                 const leagueMappings: PremTableStat[] = standings.map(mapToPremTable)
 
                 setLeagueStandings(leagueMappings)
-                console.log("LIVERPOOL IS THE BEST", leagueMappings)
             } catch(error) {
                 console.error('Error while retrieving premier league table', error)
             }
