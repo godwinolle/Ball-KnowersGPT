@@ -102,7 +102,7 @@ const PremierLeagueTable = () => {
     )
 }
 
-const mapToPremTable = (premTeam: any): PremTableStat => {
+const mapToPremTable = (premTeam: PremTeam): PremTableStat => {
     return {
         logo: premTeam.team.logo,
         position: premTeam.rank,
@@ -116,6 +116,40 @@ const mapToPremTable = (premTeam: any): PremTableStat => {
         goalsAgainst: premTeam.all.goals.against,
         goalDiff: premTeam.goalsDiff
     }
+}
+
+interface TeamInfo {
+    id: number;
+    name: string;
+    logo: string;
+}
+
+interface Goals {
+    for: number;
+    against: number;
+}
+
+interface Record {
+    played: number;
+    win: number;
+    draw: number;
+    lose: number;
+    goals: Goals;
+}
+
+interface PremTeam {
+    rank: number;
+    team: TeamInfo;
+    points: number;
+    goalsDiff: number;
+    group: string;
+    form: string;
+    status: string;
+    description: string;
+    all: Record;
+    home: Record;
+    away: Record;
+    update: string;
 }
 
 export default PremierLeagueTable
