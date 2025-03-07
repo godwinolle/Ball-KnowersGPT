@@ -87,7 +87,7 @@ const FavoriteTeam = () => {
                 { nextOpponent && (
                     <span className="flex items-center space-x-2">
                         <p className="text-sm"> Next Match: { nextOpponent.name } </p>
-                        <Image height={32} width={32} className="w-8 h-8 object-cover" src={ nextOpponent.logo } alt={ `${nextOpponent.name}'s logo` }/>
+                        <Image height={16} width={16} className="object-cover" src={ nextOpponent.logo } alt={ `${nextOpponent.name}'s logo` }/>
                     </span>
                 )
                 }

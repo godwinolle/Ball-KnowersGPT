@@ -2,10 +2,13 @@
 
 import { useState } from "react";
 
+import Link from 'next/link';
+
 import { GiPodium, GiSoccerBall, GiSoccerKick } from "react-icons/gi";
 import { TbSoccerField } from "react-icons/tb";
 import { SiPremierleague } from "react-icons/si";
 import { PiSealQuestionDuotone } from "react-icons/pi";
+import { FaHome } from "react-icons/fa";
 
 import ModalMenu from "./modalMenu";
 
@@ -33,9 +36,19 @@ const Menu = () => {
                     </p>
                 </div>
                 <ul>
-                    <li className="cursor-pointer border-[1px] bg-gray-800 p-2 rounded-xl mt-4 flex justify-start items-center gap-3 text-white">
-                        <GiPodium /> 
-                        <span>League Standings (Coming Soon)</span>
+                    <li className="cursor-pointer border-[1px] bg-gray-800 p-2 rounded-xl mt-4 text-white">
+                        <Link href='/' className='flex justify-start items-center gap-3'>
+                            <SiPremierleague /> 
+                            <span>Home</span>
+                        </Link>
+                        
+                    </li>
+                    <li className="cursor-pointer border-[1px] bg-gray-800 p-2 rounded-xl mt-4 text-white">
+                        <Link href='/league-standings' className='flex justify-start items-center gap-3'>
+                            <GiPodium /> 
+                            <span>League Standings</span>
+                        </Link>
+                        
                     </li>
                     <li className="cursor-pointer border-[1px] bg-[#1F2937] p-2 rounded-xl mt-4 flex justify-start items-center gap-3 text-white">
                         <GiSoccerBall />
@@ -45,9 +58,15 @@ const Menu = () => {
                         <GiSoccerKick />
                         <span>Assist Leaders (Coming Soon)</span>
                     </li>
-                    <li className="cursor-pointer border-[1px] bg-gray-800 p-2 rounded-xl mt-4 flex justify-start items-center gap-3 text-white">
-                        <PiSealQuestionDuotone />
-                        <span>Who Am I? (Coming Soon)</span>
+                    <li className="cursor-pointer border-[1px] bg-gray-800 p-2 rounded-xl mt-4 text-white">
+                        <div className='flex justify-start items-center gap-3'>
+                            <PiSealQuestionDuotone />
+                            <span>Who Am I? (Coming Soon)</span>
+                        </div>
+                    
+                        <span className='font-light text-xs text-gray-300'>
+                            Are you a proper ball knower? Play our interactive game to test your ball knowledge.
+                        </span>
                     </li>
                 </ul>
             </ModalMenu>

@@ -1,7 +1,12 @@
 'use client'
+import { useState, useEffect } from 'react';
+import Image from 'next/image'
+
+import Spinner from '../Spinner';
+import { RAPID_API_HOST, RAPID_API_KEY, RAPID_API_URL } from '@/lib/const';
 
 interface PremTableStat {
-    // logo: string
+    logo: string
     position: number
     team: string
     points: number
@@ -15,19 +20,53 @@ interface PremTableStat {
 }
 
 const premierLeagueTable = () => {
-    const standings: PremTableStat[] = [
-        { position: 1, team: "Team A", points: 67, played: 28, won: 20, draw: 7, lost: 1, goalsFor: 66, goalsAgainst: 26, goalDiff: 40 },
-        { position: 2, team: "Nottingham Forest", points: 42, played: 28, won: 20, draw: 7, lost: 1, goalsFor: 66, goalsAgainst: 26, goalDiff: 40 },
-        { position: 3, team: "Team C", points: 40, played: 28, won: 20, draw: 7, lost: 1, goalsFor: 66, goalsAgainst: 26, goalDiff: 40 },
-    ];
+    const [leagueStandings, setLeagueStandings] = useState<PremTableStat[]>([])
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+
+    useEffect(() => {
+        const fetchLeagueTable = async () => {
+            const url: string = `${RAPID_API_URL}/standings?league=39&season=2024`
+
+            const options = {
+                method: 'GET',
+                headers: {
+                    'x-rapidapi-key': RAPID_API_KEY,
+                    'x-rapidapi-host': RAPID_API_HOST
+                }
+            }
+
+            try{ 
+                setIsLoading(true)
+                const response = await fetch(url, options)
+                const data = await response.json()
+                const standings = await data.response[0].league.standings[0]
+
+                const leagueMappings: PremTableStat[] = standings.map(mapToPremTable)
+
+                setLeagueStandings(leagueMappings)
+                console.log("LIVERPOOL IS THE BEST", leagueMappings)
+            } catch(error) {
+                console.error('Error while retrieving premier league table', error)
+            }
+
+            setIsLoading(false)
+        }
+
+        fetchLeagueTable()
+    }, [])
     
     return(
         <div className="overflow-x-auto">
-            <table className="bg-white dark:bg-inherit mx-auto p-3">
+            { isLoading ? (
+                <div className='flex justify-center items-center h-screen'>
+                    <Spinner />
+                </div>
+            ) : 
+            (<table className="bg-white dark:bg-inherit mx-auto p-3">
                 <thead>
                     <tr>
                         <th className="py-2 px-4 border-b-2 border-gray-300 dark:border-gray-700 w-16">#</th>
-                        <th className="py-2 px-4 border-b-2 border-gray-300 dark:border-gray-700 text-start">Team</th>
+                        <th className="py-2 px-4 border-b-2 border-gray-300 dark:border-gray-700 text-start w-1/3">Team</th>
                         <th className="py-2 px-4 border-b-2 border-gray-300 dark:border-gray-700 w-auto">PL</th>
                         <th className="py-2 px-4 border-b-2 border-gray-300 dark:border-gray-700 w-auto">W</th>
                         <th className="py-2 px-4 border-b-2 border-gray-300 dark:border-gray-700 w-auto">D</th>
@@ -38,10 +77,15 @@ const premierLeagueTable = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {standings.map((team) => (
-                        <tr key={team.position} className="hover:bg-gray-100 dark:hover:bg-gray-700">
+                    {leagueStandings.map((team) => (
+                        <tr key={team.position} className="hover:bg-gray-100 dark:hover:bg-gray-700 cursor-default">
                             <td className="py-2 px-4 border-b border-gray-300 dark:border-gray-700 text-center">{team.position}</td>
-                            <td className="py-2 px-4 border-b border-gray-300 dark:border-gray-700">{team.team}</td>
+                            <td className="py-2 px-4 border-b border-gray-300 dark:border-gray-700">
+                                <div className='flex items-center gap-2'>
+                                    <Image height={16} width={16} className="object-cover" src={ team.logo } alt={ `${team.team}'s logo` }/>
+                                    <span className='text-sm sm:text-base w-fit'>{team.team}</span>
+                                </div>
+                            </td>
                             <td className="py-2 px-4 border-b border-gray-300 dark:border-gray-700 text-center">{team.played}</td>
                             <td className="py-2 px-4 border-b border-gray-300 dark:border-gray-700 text-center">{team.won}</td>
                             <td className="py-2 px-4 border-b border-gray-300 dark:border-gray-700 text-center">{team.draw}</td>
@@ -52,9 +96,26 @@ const premierLeagueTable = () => {
                         </tr>
                     ))}
                 </tbody>
-            </table>
+            </table>)
+            }
         </div>
     )
+}
+
+const mapToPremTable = (premTeam: any): PremTableStat => {
+    return {
+        logo: premTeam.team.logo,
+        position: premTeam.rank,
+        team: premTeam.team.name,
+        points: premTeam.points,
+        played: premTeam.all.played,
+        won: premTeam.all.win,
+        draw: premTeam.all.draw,
+        lost: premTeam.all.lose,
+        goalsFor: premTeam.all.goals.for,
+        goalsAgainst: premTeam.all.goals.against,
+        goalDiff: premTeam.goalsDiff
+    }
 }
 
 export default premierLeagueTable
