@@ -19,7 +19,7 @@ interface PremTableStat {
     goalDiff: number
 }
 
-const premierLeagueTable = () => {
+const PremierLeagueTable = () => {
     const [leagueStandings, setLeagueStandings] = useState<PremTableStat[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -118,4 +118,4 @@ const mapToPremTable = (premTeam: any): PremTableStat => {
     }
 }
 
-export default premierLeagueTable
+export default PremierLeagueTable

@@ -8,7 +8,6 @@ import { GiPodium, GiSoccerBall, GiSoccerKick } from "react-icons/gi";
 import { TbSoccerField } from "react-icons/tb";
 import { SiPremierleague } from "react-icons/si";
 import { PiSealQuestionDuotone } from "react-icons/pi";
-import { FaHome } from "react-icons/fa";
 
 import ModalMenu from "./modalMenu";
 
