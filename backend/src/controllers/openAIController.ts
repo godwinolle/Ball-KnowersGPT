@@ -34,6 +34,4 @@ const instructionsToKnowledgeBase = () => {
     return `Here is a JSON format with the most relevant information on certain players. Along with your own understanding, use this information as well to determine the answer to a question. Here is the information: ${parsedKnowledgeBase}`
 }
 
-// console.log(`${instructionsToKnowledgeBase()}`)
-
 export { generateChat }
