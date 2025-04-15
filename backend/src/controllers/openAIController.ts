@@ -6,7 +6,6 @@ import knowledgeBase = require('../knowledgeBase/easyPlayers.json')
 const generateChat = async (userPrompt: string): Promise<string> => {
     const completion = await openai.chat.completions.create({
         model: "gpt-4o-mini",
-        max_tokens: 100,
         messages: [
             {
                 role: "assistant",
@@ -31,7 +30,7 @@ const generateChat = async (userPrompt: string): Promise<string> => {
 const instructionsToKnowledgeBase = () => {
     let parsedKnowledgeBase = JSON.stringify(knowledgeBase) 
 
-    return `Here is a JSON format with the most relevant information on certain players. Along with your own understanding, use this information as well to determine the answer to a question. Here is the information: ${parsedKnowledgeBase}`
+    return `Here is a JSON format with the most relevant information on certain players. Before using historical data, use this information as well to determine the answer to a question. Here is the information: ${parsedKnowledgeBase}`
 }
 
 export { generateChat }
