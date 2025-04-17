@@ -58,10 +58,10 @@ const Menu = () => {
                         <span>Assist Leaders (Coming Soon)</span>
                     </li>
                     <li className="cursor-pointer border-[1px] bg-gray-800 p-2 rounded-xl mt-4 text-white">
-                        <div className='flex justify-start items-center gap-3'>
+                        <Link href='/interactive-game' className='flex justify-start items-center gap-3'>
                             <PiSealQuestionDuotone />
                             <span>Who Am I? (Coming Soon)</span>
-                        </div>
+                        </Link>
                     
                         <span className='font-light text-xs text-gray-300'>
                             Are you a proper ball knower? Play our interactive game to test your ball knowledge.

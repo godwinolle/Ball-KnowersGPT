@@ -1,0 +1,158 @@
+[
+    {
+      "name": "Erling Haaland",
+      "position": "Forward",
+      "club": "Manchester City",
+      "nationality": "Norwegian"
+    },
+    {
+      "name": "Mohamed Salah",
+      "position": "Forward",
+      "club": "Liverpool",
+      "nationality": "Egyptian"
+    },
+    {
+      "name": "Kevin De Bruyne",
+      "position": "Midfielder",
+      "club": "Manchester City",
+      "nationality": "Belgian"
+    },
+    {
+      "name": "Virgil van Dijk",
+      "position": "Defender",
+      "club": "Liverpool",
+      "nationality": "Dutch"
+    },
+    {
+      "name": "Jarrod Bowen",
+      "position": "Forward",
+      "club": "West Ham",
+      "nationality": "English"
+    },
+    {
+      "name": "Rodri",
+      "position": "Midfielder",
+      "club": "Manchester City",
+      "nationality": "Spanish"
+    },
+    {
+      "name": "Bukayo Saka",
+      "position": "Forward",
+      "club": "Arsenal",
+      "nationality": "English"
+    },
+    {
+      "name": "Marcus Rashford",
+      "position": "Forward",
+      "club": "Aston Villa",
+      "nationality": "English"
+    },
+      {
+      "name": "Bruno Fernandes",
+      "position": "Midfielder",
+      "club": "Manchester United",
+      "nationality": "Portuguese"
+    },
+    {
+      "name": "Heung-Min Son",
+      "position": "Forward",
+      "club": "Tottenham Hotspur",
+      "nationality": "South Korean"
+    },
+    {
+      "name": "Declan Rice",
+      "position": "Midfielder",
+      "club": "Arsenal",
+      "nationality": "English"
+    },
+      {
+      "name": "William Saliba",
+      "position": "Defender",
+      "club": "Arsenal",
+      "nationality": "French"
+    },
+      {
+      "name": "Martin Ødegaard",
+      "position": "Midfielder",
+      "club": "Arsenal",
+      "nationality": "Norwegian"
+    },
+      {
+      "name": "Alisson",
+      "position": "Goalkeeper",
+      "club": "Liverpool",
+      "nationality": "Brazilian"
+    },
+    {
+      "name": "Trent Alexander-Arnold",
+      "position": "Defender",
+      "club": "Liverpool",
+      "nationality": "English"
+    },
+    {
+      "name": "Gabriel Martinelli",
+      "position": "Forward",
+      "club": "Arsenal",
+      "nationality": "Brazilian"
+    },
+    {
+      "name": "Gabriel Jesus",
+      "position": "Forward",
+      "club": "Arsenal",
+      "nationality": "Brazilian"
+    },
+    {
+      "name": "James Maddison",
+      "position": "Midfielder",
+      "club": "Tottenham Hotspur",
+      "nationality": "English"
+    },
+      {
+      "name": "Pedro Neto",
+      "position": "Forward",
+      "club": "Chelsea FC",
+      "nationality": "Portuguese"
+    },
+    {
+      "name": "Ollie Watkins",
+      "position": "Forward",
+      "club": "Aston Villa",
+      "nationality": "English"
+    },
+    {
+      "name": "Jack Grealish",
+      "position": "Midfielder",
+      "club": "Manchester City",
+      "nationality": "English"
+    },
+    {
+      "name": "Bernardo Silva",
+      "position": "Midfielder",
+      "club": "Manchester City",
+      "nationality": "Portuguese"
+    },
+    {
+      "name": "Phil Foden",
+      "position": "Midfielder",
+      "club": "Manchester City",
+      "nationality": "English"
+    },
+    {
+      "name": "Ederson",
+      "position": "Goalkeeper",
+      "club": "Manchester City",
+      "nationality": "Brazilian"
+    },
+    {
+      "name": "Cole Palmer",
+      "position": "Midfielder",
+      "club": "Chelsea FC",
+      "nationality": "English"
+    },
+    { 
+      "name": "Savinho",
+      "position": "Forward",
+      "club": "Manchester City",
+      "nationality": "Brazilian"
+    }
+]
