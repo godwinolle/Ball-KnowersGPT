@@ -37,12 +37,12 @@ const PlayerGuessingGame = () => {
     const [loadingGame, setLoadingGame] = useState<boolean>(false)
     const [loadingQuestion, setLoadingQuestion] = useState<boolean>(false)
 
-    const mockPlayer: Player = {
-        name: "Declan Rice",
-        position: "Midfielder",
-        club: "Arsenal",
-        nationality: "English"
-    }
+    // const mockPlayer: Player = {
+    //     name: "Declan Rice",
+    //     position: "Midfielder",
+    //     club: "Arsenal",
+    //     nationality: "English"
+    // }
 
     const initializeGame = async () => {
         try{ 
