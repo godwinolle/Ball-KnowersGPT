@@ -48,7 +48,7 @@ const generateGameAnswer = async (player: Player, userQuestion: string): Promise
                 },
                 {
                     role: "user",
-                    content: `Answer the user's question in a few words, no more than 3, only based on the following player info: Player: ${player.name} Position: ${player.position} Club: ${player.club} Nationality: ${player.nationality} User question: ${userQuestion}. Please answer in short form without saying the players name or giving too many hints. Remember, this is a game.`
+                    content: `Answer the user's question in a few words, no more than 3, only based on the following player info: Player: ${player.name} Position: ${player.position} Club: ${player.club} Nationality: ${player.nationality} User question: ${userQuestion}. Please answer in short form without saying the players name, or the players club or nationality and giving too many hints. Remember, this is a game.`
                 }
             ]
         })

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 
 import { GAME_URL } from '@/lib/const'
+import Spinner from '../Spinner'
 
 interface Player {
     name: string
@@ -46,7 +47,7 @@ const PlayerGuessingGame = () => {
     const initializeGame = async () => {
         try{ 
             setLoadingGame(true)
-            let options = {
+            const options = {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -78,8 +79,15 @@ const PlayerGuessingGame = () => {
 
     const askQuestion = async () => {
         if (gameState.remainingQuestions <= 0) return;
+
+        if (gameState.player && guess.toLowerCase().includes(gameState.player.name.toLowerCase())) {
+            setGameState(prev => ({ ...prev, isGameWon: true })); 
+            return
+        }
+
         try{ 
-            let options = {
+            setLoadingQuestion(true)
+            const options = {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -108,6 +116,7 @@ const PlayerGuessingGame = () => {
         } catch(error) {
             console.error('Error asking question:', error)
         } finally {
+            setLoadingQuestion(false)
             setQuestion('')
         }
     }
@@ -122,15 +131,20 @@ const PlayerGuessingGame = () => {
     return (
         <div className="max-w-2xl mx-auto p-4">
             <h1 className="text-2xl font-bold mb-4">Guess the Player!</h1>
-            <div className="text-sm font-medium">
-                Questions remaining: {gameState.remainingQuestions}
-            </div>
-            {gameState.player && !gameState.isGameWon && (
-                <div className="mb-4">
-                    <h2 className="text-xl mb-2">Player Info:</h2>
-                    <p>Position: { gameState.player.position }</p>
+
+            { loadingGame ? (loadingGameState()) : ( 
+                <div>
+                    <div className="text-sm font-medium">
+                        Questions remaining: {gameState.remainingQuestions}
+                    </div>
+                    { gameState.player && !gameState.isGameWon && (
+                        <div className="mb-4">
+                            <h2 className="text-xl mb-2">Player Info:</h2>
+                            <p>Position: { gameState.player.position }</p>
+                        </div>
+                    ) }
                 </div>
-            )}
+             ) }
 
             <div className="space-y-4">
                 { gameState.messages.map((message, index) => (
@@ -143,47 +157,56 @@ const PlayerGuessingGame = () => {
             </div>
 
             { !gameState.isGameWon ? (
-            <div className="space-y-4 mt-4 text-sm">
-                <div>
-                    <input
-                        type="text"
-                        value={question}
-                        onChange={(e) => setQuestion(e.target.value)}
-                        placeholder="Ask a question about the player..."
-                        className="w-full p-2 border rounded text-black"
-                        disabled={ gameState.remainingQuestions <= 0 || gameState.isGameWon }
-                    />
-                    <button
-                        onClick={ askQuestion }
-                        className="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
-                        disabled={ gameState.remainingQuestions <= 0 || gameState.isGameWon }
-                    >
-                        Ask Question
-                    </button>
-                </div>
+                <div className="space-y-4 mt-4 text-sm">
+                    <div>
+                        <input
+                            type="text"
+                            value={question}
+                            onChange={(e) => setQuestion(e.target.value)}
+                            placeholder="Ask a question about the player..."
+                            className="w-full p-2 border rounded text-black"
+                            disabled={ gameState.remainingQuestions <= 0 || gameState.isGameWon }
+                        />
+                        <button
+                            onClick={ askQuestion }
+                            className="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
+                            disabled={ gameState.remainingQuestions <= 0 || gameState.isGameWon }
+                        >
+                            { loadingQuestion ? (<Spinner />) : `Ask Question` }
+                        </button>
+                    </div>
 
-                <div>
-                    <input
-                        type="text"
-                        value={guess}
-                        onChange={(e) => setGuess(e.target.value)}
-                        placeholder="Make your guess..."
-                        className="w-full p-2 border rounded text-black"
-                        disabled={ gameState.isGameWon }
-                    />
-                    <button
-                        onClick={ makeGuess }
-                        className="mt-2 px-4 py-2 bg-green-500 text-white rounded"
-                        disabled={ gameState.isGameWon }
-                    >
-                        Submit Guess
-                    </button>
+                    <div>
+                        <input
+                            type="text"
+                            value={guess}
+                            onChange={(e) => setGuess(e.target.value)}
+                            placeholder="Make your guess..."
+                            className="w-full p-2 border rounded text-black"
+                            disabled={ gameState.isGameWon }
+                        />
+                        <button
+                            onClick={ makeGuess }
+                            className="mt-2 px-4 py-2 bg-green-500 text-white rounded"
+                            disabled={ gameState.isGameWon }
+                        >
+                            Submit Guess
+                        </button>
+                    </div>
                 </div>
-            </div>
+            
             ) : (
                 gameFinishedState(gameState)
             ) }
         </div>
+    )
+}
+
+const loadingGameState = () => {
+    return (
+        <div className='flex justify-center items-center h-screen'>
+            <Spinner />
+        </div>   
     )
 }
 
