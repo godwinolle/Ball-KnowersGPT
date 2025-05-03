@@ -11,9 +11,10 @@ const Chat = () => {
     const [aiResponse, setAIResponse] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('')
+    const [showSuggestions, setShowSuggestions] = useState<boolean>(true)
 
     // Add a list of suggestions
-    const suggestionsListOne = [
+    const suggestionsListOne: string[] = [
         "What's the latest football news?",
         "What are the rules of football?",
         "Who won the last Premier League?",
@@ -66,6 +67,7 @@ const Chat = () => {
             setError('Please Enter A Message')
         } else {
             setError('')
+            setShowSuggestions(false)
             await chatWithAI(prompt)
         }
     }
@@ -95,28 +97,35 @@ const Chat = () => {
                 </button>
             </form>
             { error && <div className="text-red-500 mb-2 w-[90%] md:w-[50%] mx-auto">{error}</div> }
-            <div className='mx-auto w-full md:w-[60%]'>
-                <div className='p-2 flex gap-2 overflow-x-auto scrollbar-hide [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]' style={{ scrollSnapType: "x mandatory" }}>
-                    <div className='animate-infinite-scroll flex gap-2'>
-                        { suggestionsListOne.map((suggestion, i) => (
-                            <div 
-                                key={i} 
-                                className="cursor-pointer bg-gray-800 text-white px-1 md:px-3 py-1 text-sm rounded-full whitespace-nowrap flex-shrink-0 hover:bg-gray-700 transition-all duration-200" 
-                                style={{ scrollSnapAlign: "center" }}
-                                onClick={ () => handleSuggestionClick(suggestion) }>
-                                { suggestion }
-                            </div>
-                        ))}
+                { showSuggestions && (
+                    <div className='mx-auto w-full md:w-[60%]'>
+                        { userSuggestedExamples(suggestionsListOne, handleSuggestionClick) }
                     </div>
-                </div>
-            </div>
-
+                ) }
             <div className='p-2 w-[90%] md:w-[50%] mx-auto flex justify-center text-sm'>
                 {
                     isLoading ? (<Spinner />) : aiResponse 
                 }
             </div>
         </>
+    )
+}
+
+function userSuggestedExamples(suggestionsList: string[], handleSuggestionClick: (suggestion: string) => void) {
+    return(
+        <div className='p-2 flex gap-2 overflow-x-auto scrollbar-hide [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]' style={{ scrollSnapType: "x mandatory" }}>
+            <div className='animate-infinite-scroll flex gap-2'>
+                { suggestionsList.map((suggestion, i) => (
+                    <div 
+                        key={i} 
+                        className="cursor-pointer bg-gray-800 text-white px-1 md:px-3 py-1 text-sm rounded-full whitespace-nowrap flex-shrink-0 hover:bg-gray-700 transition-all duration-200" 
+                        style={{ scrollSnapAlign: "center" }}
+                        onClick={ () => handleSuggestionClick(suggestion) }>
+                            { suggestion }
+                    </div>
+                ))}
+            </div>
+        </div>
     )
 }
 

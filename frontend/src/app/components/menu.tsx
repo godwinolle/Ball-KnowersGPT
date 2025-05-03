@@ -23,7 +23,7 @@ const Menu = () => {
             <div className="w-fit h-fit border-2 border-slate-200 p-2 text-lg rounded-xl cursor-pointer" onClick={ handleMenuToggle }>
                 <TbSoccerField />
             </div>
-            <span className="absolute left-1/2 -translate-x-1/2 -bottom-1 hidden group-hover:block bg-slate-800 text-white px-2 py-1 rounded-md text-sm">
+            <span className="absolute left-1/2 -translate-x-1/2 -bottom-1/2 hidden group-hover:block bg-slate-800 text-white px-2 py-1 rounded-md text-sm">
                  Menu
             </span>
 
@@ -50,17 +50,21 @@ const Menu = () => {
                         
                     </li>
                     <li className="cursor-pointer border-[1px] bg-[#1F2937] p-2 rounded-xl mt-4 flex justify-start items-center gap-3 text-white">
-                        <GiSoccerBall />
-                        <span>Leading Goal Scorers (Coming Soon)</span>
+                        <Link href='/league-top-scorers' className='flex justify-start items-center gap-3'>
+                            <GiSoccerBall />
+                            <span>Leading Goal Scorers</span>
+                        </Link>
                     </li>
                     <li className="cursor-pointer border-[1px] bg-gray-800 p-2 rounded-xl mt-4 flex justify-start items-center gap-3 text-white">
-                        <GiSoccerKick />
-                        <span>Assist Leaders (Coming Soon)</span>
+                        <Link href='/league-top-assisters' className='flex justify-start items-center gap-3'>
+                            <GiSoccerKick />
+                            <span>Assist Leaders</span>
+                        </Link>
                     </li>
                     <li className="cursor-pointer border-[1px] bg-gray-800 p-2 rounded-xl mt-4 text-white">
                         <Link href='/interactive-game' className='flex justify-start items-center gap-3'>
                             <PiSealQuestionDuotone />
-                            <span>Who Am I? (Coming Soon)</span>
+                            <span>Test Your Ball Knowledge!</span>
                         </Link>
                     
                         <span className='font-light text-xs text-gray-300'>
