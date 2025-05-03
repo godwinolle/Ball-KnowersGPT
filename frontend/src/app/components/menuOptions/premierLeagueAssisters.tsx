@@ -20,9 +20,8 @@ const PremierLeagueTopAssisters = () => {
 
     useEffect(() => {
         const fetchTopScorers = async () => {
-            const date = new Date
-
             // TODO, set it up so that I can just call the season by the year
+            // const date = new Date
             // let year: number = date.getFullYear() - 1
             const url: string = `${RAPID_API_URL}/players/topassists?league=39&season=2024`
 
@@ -103,7 +102,7 @@ const PremierLeagueTopAssisters = () => {
 }
 
 const mapToPremTopAssisters = (premPlayer: PlayerStatistics): PremTableTopAssisters => {
-    let goalsAssisted = (premPlayer.statistics[0].goals.assists)
+    const goalsAssisted = (premPlayer.statistics[0].goals.assists)
 
     return {
         photo: premPlayer.player.photo,

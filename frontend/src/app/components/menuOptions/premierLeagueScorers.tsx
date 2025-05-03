@@ -21,9 +21,8 @@ const PremierLeagueTopScorers = () => {
 
     useEffect(() => {
         const fetchTopScorers = async () => {
-            const date = new Date
-
             // TODO, set it up so that I can just call the season by the year
+            // const date = new Date
             // let year: number = date.getFullYear() - 1
             const url: string = `${RAPID_API_URL}/players/topscorers?league=39&season=2024`
 
@@ -104,8 +103,8 @@ const PremierLeagueTopScorers = () => {
 }
 
 const mapToPremTopScorers = (premPlayer: PlayerStatistics): PremTableTopScorers => {
-    let goals = premPlayer.statistics[0].goals.total
-    let penalty = premPlayer.statistics[0].penalty.scored
+    const goals = premPlayer.statistics[0].goals.total
+    const penalty = premPlayer.statistics[0].penalty.scored
 
     return {
         photo: premPlayer.player.photo,
