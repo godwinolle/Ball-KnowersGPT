@@ -28,7 +28,7 @@ const PremierLeagueTable = () => {
             const date = new Date
 
             // TODO, set it up so that I can just call the season by the year
-            let year: number = date.getFullYear() - 1
+            // let year: number = date.getFullYear() - 1
             const url: string = `${RAPID_API_URL}/standings?league=39&season=2024`
 
             const options = {
