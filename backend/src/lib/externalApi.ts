@@ -55,7 +55,7 @@ async function fetchTopScorers() {
 }
 
 async function fetchTopAssisters() {
-    const url: string = `${apiUrl}/players/topassisters?league=39&season=2024`
+    const url: string = `${apiUrl}/players/topassists?league=39&season=2024`
 
     const options = {
         method: 'GET',

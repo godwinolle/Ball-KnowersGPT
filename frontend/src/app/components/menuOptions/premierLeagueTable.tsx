@@ -25,6 +25,9 @@ const PremierLeagueTable = () => {
 
     useEffect(() => {
         const fetchLeagueTable = async () => {
+            // TODO, set it up so that I can just call the season by the year
+            // const date = new Date
+            // let year: number = date.getFullYear() - 1
             const url: string = `${RAPID_API_URL}/standings?league=39&season=2024`
 
             const options = {
@@ -61,7 +64,7 @@ const PremierLeagueTable = () => {
                     <Spinner />
                 </div>
             ) : 
-            (<table className="bg-white dark:bg-inherit mx-auto p-3">
+            (<table className="bg-white dark:bg-inherit mx-auto p-3 w-full max-w-3l">
                 <thead>
                     <tr>
                         <th className="py-2 px-4 border-b-2 border-gray-300 dark:border-gray-700 w-16">#</th>
@@ -77,7 +80,13 @@ const PremierLeagueTable = () => {
                 </thead>
                 <tbody>
                     {leagueStandings.map((team) => (
-                        <tr key={team.position} className="hover:bg-gray-100 dark:hover:bg-gray-700 cursor-default">
+                        <tr key={team.position} 
+                            className={`hover:bg-gray-100 dark:hover:bg-gray-700 cursor-default 
+                            ${team.position === 1 ? 'border-l-4 border-l-green-500' : ''}
+                            ${team.position >= 2 && team.position <= 4 ? 'border-l-4 border-l-blue-500' : ''}
+                            ${team.position >= leagueStandings.length - 2 ? 'border-l-4 border-l-red-500' : ''}
+                            ` 
+                        }>
                             <td className="py-2 px-4 border-b border-gray-300 dark:border-gray-700 text-center">{team.position}</td>
                             <td className="py-2 px-4 border-b border-gray-300 dark:border-gray-700">
                                 <div className='flex items-center gap-2'>
