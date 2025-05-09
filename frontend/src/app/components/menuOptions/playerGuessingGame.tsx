@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 import { GAME_URL } from '@/lib/const'
 import Spinner from '../Spinner'
-import { q } from 'framer-motion/client'
 
 interface Player {
     name: string
@@ -124,7 +123,7 @@ const PlayerGuessingGame = () => {
         }
     }
 
-    const handleFormInput = (e) => {
+    const handleFormInput = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         activeInput === "question" ? askQuestion() : makeGuess()
