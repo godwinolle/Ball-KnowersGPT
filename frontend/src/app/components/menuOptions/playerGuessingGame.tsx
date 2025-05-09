@@ -153,11 +153,11 @@ const PlayerGuessingGame = () => {
                 <p className='text-xs mb-2'>{ `Let's test your ball knowledge and see if you really know the players in the English Premier League.` }</p>
                 <div className='flex items-center justify-between'>
                     <div className='flex items-center gap-4'>
-                        <div className='bg-white/20 px-4 py-2 rounded-full'>
+                        <div className='bg-white/20 px-4 py-2 rounded-full text-sm md:text-base'>
                             <span>Questions Left: { gameState.remainingQuestions }</span>
                         </div>
                         { ( gameState.player && !gameState.isGameWon ) && (
-                            <div className='bg-white/20 px-4 py-2 rounded-full'>
+                            <div className='bg-white/20 px-4 py-2 rounded-full text-sm md:text-base'>
                                 <span>Position: { gameState.player.position }</span>
                             </div>
                     ) }
@@ -202,7 +202,7 @@ const PlayerGuessingGame = () => {
 
             { !gameState.isGameWon ? (
                 <div className='space-y-2'>
-                    <div className='flex gap-2 mb-4'>
+                    <div className='flex gap-2 mb-4 text-sm md:text-base'>
                         <button 
                             onClick={ () => setActiveInput('question') }
                             className={`flex-1 py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors 
@@ -223,7 +223,7 @@ const PlayerGuessingGame = () => {
                     </div>
 
                     <form onSubmit={ handleFormInput } className='relative'>
-                        <div className='flex gap-2 items-center bg-white dark:bg-gray-800 rounded-lg p-2 border border-gray-200 dark:border-gray-700'>
+                        <div className='text-sm md:text-base flex gap-2 items-center bg-white dark:bg-gray-800 rounded-lg p-2 border border-gray-200 dark:border-gray-700'>
                             <input 
                                 type='text'
                                 value={ activeInput === 'question' ? question : guess }
