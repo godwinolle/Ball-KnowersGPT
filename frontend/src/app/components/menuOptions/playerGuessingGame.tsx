@@ -237,16 +237,7 @@ const PlayerGuessingGame = () => {
                     </form>
                 </div>
             ) : (
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className='bg-gradient-to-r from-green-500 to-emerald-600 text-white p-6 rounded-lg'
-            >
-                <h2 className='text-xl font-bold mb-2'>
-                    🎉 Congratulations!
-                </h2>
-                <p>You correctly guessed { gameState.player?.name }!</p>
-            </motion.div>
+                gameFinishedState(gameState)
             )}
         </div>
     )
@@ -265,20 +256,23 @@ const loadingGameState = () => {
 
 const gameFinishedState = (gameState: GameState ) => {
     return (
-        <div className={`mt-4 p-4 rounded ${gameState.isGameWon ? 'bg-green-100' : 'bg-red-100'}`}>
-            <h2 className={`text-xl font-bold ${gameState.isGameWon ? 'text-green-700' : 'text-red-700'}`}>
-                {gameState.isGameWon 
-                    ? `Congratulations! You correctly guessed ${gameState.player?.name}!`
-                    : `Game Over! The player was ${gameState.player?.name}`
-                }
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className='bg-gradient-to-r from-green-500 to-emerald-600 text-white p-6 rounded-lg'
+        >
+            <h2 className='text-xl font-bold mb-2'>
+                🎉 Congratulations!
             </h2>
+            <p>You correctly guessed { gameState.player?.name }!</p>
+
             {/* <button
-                onClick={resetGame}
-                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
-            >
-                Play Again
-            </button> */}
-        </div>
+        //         onClick={resetGame}
+        //         className="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
+        //     >
+        //         Play Again
+        //     </button> */}
+        </motion.div>
     )  
 }
 
