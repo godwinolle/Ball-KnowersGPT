@@ -126,7 +126,11 @@ const PlayerGuessingGame = () => {
     const handleFormInput = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        activeInput === "question" ? askQuestion() : makeGuess()
+        if (activeInput === "question") {
+            askQuestion();
+        } else {
+            makeGuess();
+        }
     }
 
     const makeGuess = () => {
