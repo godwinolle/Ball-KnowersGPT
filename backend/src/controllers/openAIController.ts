@@ -38,7 +38,7 @@ const generateChat = async (userPrompt: string): Promise<string> => {
 
     const messages: ChatCompletionMessageParam[] = [
         {
-            role: "assistant",
+            role: "system",
             content: instructions
         },
         {

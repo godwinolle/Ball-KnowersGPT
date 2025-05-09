@@ -43,7 +43,7 @@ const generateGameAnswer = async (player: Player, userQuestion: string): Promise
             max_tokens: 100,
             messages: [
                 {
-                    role: "assistant",
+                    role: "system",
                     content: gamingInstructions
                 },
                 {
