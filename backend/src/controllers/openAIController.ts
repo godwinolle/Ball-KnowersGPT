@@ -6,7 +6,33 @@ import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 import { fetchRecentTeamPerformance, fetchTopAssisters, fetchTopScorers } from "../lib/externalApi";
 
 import knowledgeBase = require('../knowledgeBase/easyPlayers.json')
-import { stat } from "fs";
+
+const availableFunctions = {
+    fetchTopScorers: {
+        description: "Get the current top goal scorers in the Premier League.",
+        parameters: {
+            type: "object",
+            properties: {},
+            required: []
+        }
+    },
+    fetchTopAssisters: {
+        description: "Get the current top assisters in the Premier League.",
+        parameters: {
+            type: "object",
+            properties: {},
+            required: []
+        }
+    },
+    fetchRecentTeamPerformance: {
+        description: "Get the current Premier League standings and team performance.",
+        parameters: {
+            type: "object",
+            properties: {},
+            required: []
+        }
+    }
+}
 
 const isRecentInformationQuery = (userPrompt: string): boolean => {
     let regex = /(202[4-9]|current|recent|today|now|latest|this (year|season|month|week)|last (month|week|few (days|weeks|months))|past (month|week|few (days|weeks|months))|up to date|up-to-date|updates?|newest|most recent|recently|lately|as of|since)/i
@@ -33,9 +59,61 @@ const isAssistQuery = (userPrompt: string): boolean => {
     return assistTerms.test(userPrompt);
 }
 
-const generateChat = async (userPrompt: string): Promise<string> => {
-    const { isRecent, isPlayerStats, isTeamPerformance, statType, apiData } = await buildPromptData(userPrompt)
+// const generateChat = async (userPrompt: string): Promise<string> => {
+//     const { isRecent, isPlayerStats, isTeamPerformance, statType, apiData } = await buildPromptData(userPrompt)
 
+//     const messages: ChatCompletionMessageParam[] = [
+//         {
+//             role: "system",
+//             content: instructions
+//         },
+//         {
+//             role: "assistant",
+//             content: instructionsToKnowledgeBase()
+//         }
+//     ];
+
+//     if (apiData) {
+//         let contextMessage = ""
+//         let apiKnowledge = JSON.stringify(apiData)
+
+//         if (isRecent) {
+//             if (isPlayerStats) {
+//                 if (statType === "assists") {
+//                     contextMessage = `Here is the most up-to-date information on the current top assist providers in the Premier League this season: ${apiKnowledge}`;
+//                 } else {
+//                     contextMessage = `Here is the most up-to-date information on the current top scorers in the Premier League this season: ${ apiKnowledge }`
+//                 }
+//             } else if (isTeamPerformance) {
+//                 contextMessage = `Here is the most up-to-date information on the current Premier League standings this season: ${ apiKnowledge }`
+//             }
+
+//             // Add the context message if we have one
+//             if (contextMessage) {
+//                 messages.push( {
+//                     role: "assistant",
+//                     content: contextMessage
+//                 } );
+//             }
+//         }
+//     }
+
+//     messages.push( {
+//         role: "user",
+//         content: userPrompt
+//     } );
+
+//     const completion = await openai.chat.completions.create({
+//         model: "gpt-4o-mini",
+//         messages: messages
+//     })
+
+//     let chatAnswer = completion.choices[0].message.content
+
+//     return chatAnswer as string;
+// }
+
+const generateChat = async (userPrompt: string): Promise<string> => {
     const messages: ChatCompletionMessageParam[] = [
         {
             role: "system",
@@ -44,47 +122,47 @@ const generateChat = async (userPrompt: string): Promise<string> => {
         {
             role: "assistant",
             content: instructionsToKnowledgeBase()
+        },
+        {
+            role: "user",
+            content: userPrompt
         }
     ];
 
-    if (apiData) {
-        let contextMessage = ""
-        let apiKnowledge = JSON.stringify(apiData)
-
-        if (isRecent) {
-            if (isPlayerStats) {
-                if (statType === "assists") {
-                    contextMessage = `Here is the most up-to-date information on the current top assist providers in the Premier League this season: ${apiKnowledge}`;
-                } else {
-                    contextMessage = `Here is the most up-to-date information on the current top scorers in the Premier League this season: ${ apiKnowledge }`
-                }
-            } else if (isTeamPerformance) {
-                contextMessage = `Here is the most up-to-date information on the current Premier League standings this season: ${ apiKnowledge }`
+    const firstCompletion = await openai.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: messages,
+        tools: [
+            {
+                type: "function",
+                function: availableFunctions.fetchTopScorers
+            },
+            {
+                type: "function",
+                function: availableFunctions.fetchTopAssisters
+            },
+            {
+                type: "function",
+                function: availableFunctions.fetchRecentTeamPerformance
             }
+        ],
+        tool_choice: "auto"
+    })
 
-            // Add the context message if we have one
-            if (contextMessage) {
-                messages.push( {
-                    role: "assistant",
-                    content: contextMessage
-                } );
-            }
+    const responseMessage = firstCompletion?.choices[0].message
+    messages.push(responseMessage)
+
+    // If the LLM determines that it needs to call a function, execute that function
+    if (responseMessage.tool_calls) {
+        for (const toolCall of responseMessage.tool_calls) {
+            const functionName = toolCall.function.name
+            let functionResult;
+
+            console.log('This is the function name', functionName)
         }
     }
 
-    messages.push( {
-        role: "user",
-        content: userPrompt
-    } );
-
-    const completion = await openai.chat.completions.create({
-        model: "gpt-4o-mini",
-        messages: messages
-    })
-
-    let chatAnswer = completion.choices[0].message.content
-
-    return chatAnswer as string;
+    return responseMessage.content as string
 }
 
 const buildPromptData = async (userPrompt: string) => {

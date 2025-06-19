@@ -18,8 +18,8 @@ const Chat = () => {
         "What's the latest football news?",
         "What are the rules of football?",
         "Who won the last Premier League?",
-        "Tell me about the best players in the premier league.",
-        "How does VAR work?",
+        "Who are key players to watch out for next season?",
+        "Predict next season's top 4",
         "How many teams are in the Premier League right now?"
     ];
 
