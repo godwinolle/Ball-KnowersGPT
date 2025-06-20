@@ -1,10 +1,8 @@
 import { openai } from "../lib/openAI";
-import { instructions, functionCallingInstructions } from "../lib/prompts";
-
 import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 
+import { instructions, functionCallingInstructions } from "../lib/prompts";
 import { fetchRecentTeamPerformance, fetchTopAssisters, fetchTopScorers } from "../lib/externalApi";
-
 import knowledgeBase = require('../knowledgeBase/easyPlayers.json')
 
 const availableFunctions = {
