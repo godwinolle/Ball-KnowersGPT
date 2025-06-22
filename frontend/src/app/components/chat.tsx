@@ -1,17 +1,29 @@
 'use client'
 
 import { useState } from 'react';
-import { FaArrowCircleRight } from "react-icons/fa";
+import { FaArrowCircleRight, FaHistory, FaTimes } from "react-icons/fa";
 import { API_URL } from '@/lib/const'
 
 import Spinner from './Spinner';
 
+interface ChatMessage {
+    id: string
+    userPrompt: string
+    aiResponse: string
+    timestamp: Date
+}
+
 const Chat = () => {
-    const [prompt, setPrompt] = useState<string>('');
-    const [aiResponse, setAIResponse] = useState<string>('');
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [prompt, setPrompt] = useState<string>('')
+    const [aiResponse, setAIResponse] = useState<string>('')
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState<string>('')
     const [showSuggestions, setShowSuggestions] = useState<boolean>(true)
+
+    const [chatHistory, setChatHistory] = useState<ChatMessage[]>([])
+    // const [currentChatId, setCurrentChatId] = useState<string | null>(null)
+
+    const [showHistory, setShowHistory] = useState<boolean>(false)
 
     // Add a list of suggestions
     const suggestionsListOne: string[] = [
@@ -19,7 +31,7 @@ const Chat = () => {
         "What are the rules of football?",
         "Who won the last Premier League?",
         "Who are key players to watch out for next season?",
-        "Predict next season's top 4",
+        "Predict next season's top 4.",
         "How many teams are in the Premier League right now?"
     ];
 
@@ -48,10 +60,18 @@ const Chat = () => {
             }
 
             const data = await response.json()
- 
             const { chatBot } = data
 
             setIsLoading(false)
+
+            const newChatMessage: ChatMessage = {
+                id: Date.now().toString(),
+                userPrompt: prompt,
+                aiResponse: chatBot,
+                timestamp: new Date()
+            }
+
+            setChatHistory(prev => [...prev, newChatMessage])
             setAIResponse(chatBot)
         } catch (error) {
             setIsLoading(false)
@@ -72,29 +92,89 @@ const Chat = () => {
         }
     }
 
+    const clearPrompt = () => {
+        setPrompt('')
+    }
+
     const handleSuggestionClick = (suggestion: string) => {
         setPrompt(suggestion)
     }
 
     return(
         <>
-            <form onSubmit={ handleUserPrompt } className='border p-2 w-[90%] md:w-[50%] mx-auto my-auto rounded-xl flex justify-between mb-[1rem]'>
+            <div className='flex justify-between items-center w-[90%] md:w-[50%] mx-auto mb-2 md:mb-4 h-8'>
+                <span className='text-xs text-gray-500'>
+                    {chatHistory.length > 0 ? `${chatHistory.length} conversation${chatHistory.length !== 1 ? 's' : ''} stored` : 'No history'}
+                </span>
+                
+                <button
+                    onClick={() => setShowHistory(!showHistory)}
+                    className={`
+                        flex items-center gap-2 px-3 py-1 bg-gray-800 text-white rounded-lg hover:bg-gray-700
+                        transition-all duration-300 ease-in-out
+                        ${chatHistory.length > 0 ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'}
+                    `}
+                    disabled={chatHistory.length === 0}
+                >
+                    <FaHistory size={14} />
+                    <span className='text-sm'>{showHistory ? 'Hide' : 'Show'} History</span>
+                </button>
+            </div>
+
+            <div
+                className={`
+                    w-[90%] md:w-[50%] mx-auto mb-4
+                    grid transition-all duration-300 ease-in-out
+                    ${showHistory && chatHistory.length > 0 ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}
+                `}
+            >
+                <div className='overflow-hidden'>
+                    <div className='p-3 bg-gray-100 dark:bg-gray-800 rounded-lg max-h-60 overflow-y-auto'>
+                        <h3 className='text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300'>Conversation History</h3>
+                        <div className='space-y-2'>
+                            {chatHistory.map((chat) => (
+                                <div key={chat.id} className='p-2 rounded bg-white dark:bg-gray-700'>
+                                    <div className='text-xs text-gray-500 dark:text-gray-400 mb-1'>
+                                        {new Date(chat.timestamp).toLocaleTimeString()}
+                                    </div>
+                                    <div className='text-sm font-medium'>
+                                        {chat.userPrompt}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form onSubmit={ handleUserPrompt } className='border p-2 w-[90%] md:w-[50%] mx-auto my-auto rounded-xl flex items-center mb-[1rem]'>
                 <input
-                    className='border-none outline-none w-[90%] p-2 text-sm'
-                    style={{ backgroundColor: 'inherit' }}
+                    className='flex-grow border-none outline-none p-2 text-sm bg-transparent'
                     placeholder={`Let's talk football bruv!`}
                     value={ prompt }
                     onChange={ (e) => setPrompt(e.target.value) }
                 />
-                <button className='mr-2' disabled={ isLoading }>
-                    <div>
-                        { isLoading ? <Spinner /> : (
-                            <div style={{ backgroundColor: 'inherit' }} className='rounded-full'>
-                                <FaArrowCircleRight />
-                            </div>
-                        ) }
-                    </div>  
-                </button>
+                <div className='flex items-center flex-shrink-0'>
+                    {prompt && (
+                        <button 
+                            type="button"
+                            onClick={ clearPrompt }
+                            className='text-gray-400 hover:text-gray-600 transition-colors'
+                        >
+                            <FaTimes size={14} />
+                        </button>
+                    )}
+
+                    <button className='ml-2' disabled={ isLoading }>
+                        <div>
+                            { isLoading ? <Spinner /> : (
+                                <div style={{ backgroundColor: 'inherit' }} className='rounded-full'>
+                                    <FaArrowCircleRight />
+                                </div>
+                            ) }
+                        </div>  
+                    </button>
+                </div>
             </form>
             { error && <div className="text-red-500 mb-2 w-[90%] md:w-[50%] mx-auto">{error}</div> }
                 { showSuggestions && (
