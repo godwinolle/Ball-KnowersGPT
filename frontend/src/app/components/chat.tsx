@@ -14,6 +14,13 @@ interface ChatMessage {
     timestamp: Date
 }
 
+interface ChatMessage {
+    id: string
+    userPrompt: string
+    aiResponse: string
+    timestamp: Date
+}
+
 const Chat = () => {
     const [prompt, setPrompt] = useState<string>('')
     const [aiResponse, setAIResponse] = useState<string>('')
