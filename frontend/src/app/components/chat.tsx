@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaArrowCircleRight, FaHistory, FaTimes } from "react-icons/fa";
+import { marked } from 'marked'; 
 import { API_URL } from '@/lib/const'
 
 import Spinner from './Spinner';
@@ -19,10 +20,10 @@ const Chat = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState<string>('')
     const [showSuggestions, setShowSuggestions] = useState<boolean>(true)
+    const [displayResponse, setDisplayResponse] = useState<string>('')
 
     const [chatHistory, setChatHistory] = useState<ChatMessage[]>([])
     // const [currentChatId, setCurrentChatId] = useState<string | null>(null)
-
     const [showHistory, setShowHistory] = useState<boolean>(false)
 
     // Add a list of suggestions
@@ -98,6 +99,11 @@ const Chat = () => {
 
     const handleSuggestionClick = (suggestion: string) => {
         setPrompt(suggestion)
+    }
+
+    const getParsedMarkdown = (text: string) => {
+        const html = marked.parse(text)
+        return { __html: html}
     }
 
     return(
@@ -184,7 +190,14 @@ const Chat = () => {
                 ) }
             <div className='p-2 w-[90%] md:w-[50%] mx-auto flex justify-center text-sm'>
                 {
-                    isLoading ? (<Spinner />) : aiResponse 
+                    isLoading ? (<Spinner />) : 
+                        aiResponse && (
+                            <div 
+                                className="prose prose-sm dark:prose-invert max-w-none"
+                                dangerouslySetInnerHTML={getParsedMarkdown(aiResponse)}
+                            >
+                            </div>
+                        )
                 }
             </div>
         </>
