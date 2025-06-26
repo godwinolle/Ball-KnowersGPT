@@ -26,6 +26,23 @@ const Chat = () => {
     // const [currentChatId, setCurrentChatId] = useState<string | null>(null)
     const [showHistory, setShowHistory] = useState<boolean>(false)
 
+    useEffect(() => {
+        setDisplayResponse('')
+
+        if (aiResponse) {
+            let index = 0
+            const interval = setInterval(() => {
+                if (index < aiResponse.length) {
+                    setDisplayResponse((prev) => prev + aiResponse.charAt(index))
+                    index++;
+                } else 
+                    clearInterval(interval)
+            }, 20)
+
+            return () => clearInterval(interval)
+        }
+    }, [aiResponse])
+
     // Add a list of suggestions
     const suggestionsListOne: string[] = [
         "What's the latest football news?",
@@ -191,10 +208,10 @@ const Chat = () => {
             <div className='p-2 w-[90%] md:w-[50%] mx-auto flex justify-center text-sm'>
                 {
                     isLoading ? (<Spinner />) : 
-                        aiResponse && (
+                        displayResponse && (
                             <div 
                                 className="prose prose-sm dark:prose-invert max-w-none"
-                                dangerouslySetInnerHTML={getParsedMarkdown(aiResponse)}
+                                dangerouslySetInnerHTML={getParsedMarkdown(displayResponse)}
                             >
                             </div>
                         )
