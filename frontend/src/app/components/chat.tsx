@@ -1,10 +1,18 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaArrowCircleRight, FaHistory, FaTimes } from "react-icons/fa";
+import { marked } from 'marked'; 
 import { API_URL } from '@/lib/const'
 
 import Spinner from './Spinner';
+
+interface ChatMessage {
+    id: string
+    userPrompt: string
+    aiResponse: string
+    timestamp: Date
+}
 
 interface ChatMessage {
     id: string
@@ -19,11 +27,28 @@ const Chat = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState<string>('')
     const [showSuggestions, setShowSuggestions] = useState<boolean>(true)
+    const [displayResponse, setDisplayResponse] = useState<string>('')
 
     const [chatHistory, setChatHistory] = useState<ChatMessage[]>([])
     // const [currentChatId, setCurrentChatId] = useState<string | null>(null)
-
     const [showHistory, setShowHistory] = useState<boolean>(false)
+
+    useEffect(() => {
+        setDisplayResponse('')
+
+        if (aiResponse) {
+            let index = 0
+            const interval = setInterval(() => {
+                if (index < aiResponse.length) {
+                    setDisplayResponse((prev) => prev + aiResponse.charAt(index))
+                    index++;
+                } else 
+                    clearInterval(interval)
+            }, 20)
+
+            return () => clearInterval(interval)
+        }
+    }, [aiResponse])
 
     // Add a list of suggestions
     const suggestionsListOne: string[] = [
@@ -98,6 +123,11 @@ const Chat = () => {
 
     const handleSuggestionClick = (suggestion: string) => {
         setPrompt(suggestion)
+    }
+
+    const getParsedMarkdown = (text: string) => {
+        const html = marked.parse(text)
+        return { __html: html}
     }
 
     return(
@@ -184,7 +214,14 @@ const Chat = () => {
                 ) }
             <div className='p-2 w-[90%] md:w-[50%] mx-auto flex justify-center text-sm'>
                 {
-                    isLoading ? (<Spinner />) : aiResponse 
+                    isLoading ? (<Spinner />) : 
+                        displayResponse && (
+                            <div 
+                                className="prose prose-sm dark:prose-invert max-w-none"
+                                dangerouslySetInnerHTML={getParsedMarkdown(displayResponse)}
+                            >
+                            </div>
+                        )
                 }
             </div>
         </>

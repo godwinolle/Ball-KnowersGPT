@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/marked": "^5.0.2",
     "framer-motion": "^12.10.4",
+    "marked": "^15.0.12",
     "next": "^15.3.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
