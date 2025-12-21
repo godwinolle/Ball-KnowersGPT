@@ -5,7 +5,7 @@ import Menu from "./menu"
 
 const NavigationSystem = () => {
     return(
-        <div className="mt-[1rem] flex justify-between w-[95%] mx-auto">
+        <div className="mt-4 sm:mt-6 flex justify-between items-start w-[95%] max-w-7xl mx-auto gap-4">
             <Menu />
             <FavoriteTeam />
         </div>

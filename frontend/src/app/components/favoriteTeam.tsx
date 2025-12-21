@@ -76,23 +76,38 @@ const FavoriteTeam = () => {
     }
 
     return(
-        <div className='w-[95%] flex justify-end'>
-            <div>
-                <select value={ favoriteTeam?.name } className='bg-gray-800 text-white px-4 py-2 focus:outline-none text-sm text-center rounded-full appearance-none cursor-pointer whitespace-nowrap mb-1' onChange={ handleFavoriteTeam }>
+        <div className='flex flex-col items-end gap-2 max-w-xs sm:max-w-none'>
+            <div className="relative">
+                <select 
+                    value={favoriteTeam?.name || ''} 
+                    className='bg-gray-800 dark:bg-gray-700 text-white px-4 py-2.5 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 text-sm text-center rounded-full appearance-none cursor-pointer border border-gray-700 dark:border-gray-600 hover:bg-gray-700 dark:hover:bg-gray-600 transition-all duration-200 shadow-md' 
+                    onChange={handleFavoriteTeam}
+                >
                     <option value="">Select Your Favorite Team</option>
-                    { premierLeagueTeams.map((team, i) => (
-                        <option key={ i } value={ team.name }>{ team.name }</option>
+                    {premierLeagueTeams.map((team, i) => (
+                        <option key={i} value={team.name}>{team.name}</option>
                     ))}
                 </select>
-                { nextOpponent && (
-                    <span className="flex items-center space-x-2">
-                        <p className="text-sm"> Next Match: { nextOpponent.name } </p>
-                        <Image height={16} width={16} className="object-cover" src={ nextOpponent.logo } alt={ `${nextOpponent.name}'s logo` }/>
-                    </span>
-                )
-                }
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                    <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
             </div>
-            
+            {nextOpponent && (
+                <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-800/80 dark:bg-gray-700/80 backdrop-blur-sm rounded-full border border-gray-700 dark:border-gray-600">
+                    <p className="text-xs sm:text-sm text-gray-200 font-medium whitespace-nowrap">
+                        Next: {nextOpponent.name}
+                    </p>
+                    <Image 
+                        height={18} 
+                        width={18} 
+                        className="object-contain flex-shrink-0" 
+                        src={nextOpponent.logo} 
+                        alt={`${nextOpponent.name}'s logo`}
+                    />
+                </div>
+            )}
         </div>
     )
 }
