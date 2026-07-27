@@ -9,7 +9,7 @@ const apiUrl = RAPID_API_URL
 // }
 
 async function fetchRecentTeamPerformance() {
-    const url: string = `${apiUrl}/standings?league=39&season=2025`
+    const url: string = `${apiUrl}/standings?league=39&season=2026`
 
     const options = {
         method: 'GET',
@@ -31,7 +31,7 @@ async function fetchRecentTeamPerformance() {
 }
 
 async function fetchTopScorers() {
-    const url: string = `${apiUrl}/players/topscorers?league=39&season=2025`
+    const url: string = `${apiUrl}/players/topscorers?league=39&season=2026`
 
     const options = {
         method: 'GET',
@@ -53,7 +53,7 @@ async function fetchTopScorers() {
 }
 
 async function fetchTopAssisters() {
-    const url: string = `${apiUrl}/players/topassists?league=39&season=2025`
+    const url: string = `${apiUrl}/players/topassists?league=39&season=2026`
 
     const options = {
         method: 'GET',
