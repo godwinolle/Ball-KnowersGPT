@@ -2,18 +2,16 @@
 
 import { poppins } from '@/lib/fonts';
 
-import BallKnowers from './components/ballknowers';
 import Chat from './components/chat';
 import Footer from './components/footer';
 import NavigationSystem from './components/navigationSystem';
 
 export default function App() {
   return (
-    <div className={`${ poppins.className } min-h-screen flex flex-col bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800`}>
-      <main className="flex-grow">
+    <div className={`${poppins.className} flex flex-col min-h-dvh bg-white dark:bg-gray-900`}>
+      <main className="flex flex-1 flex-col min-h-0">
         <NavigationSystem />
-        <div className='w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 md:pt-16'>
-          <BallKnowers />
+        <div className="flex flex-1 flex-col min-h-0 w-full max-w-3xl mx-auto px-3 sm:px-6">
           <Chat />
         </div>
       </main>
