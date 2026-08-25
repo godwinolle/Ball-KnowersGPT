@@ -5,7 +5,7 @@ import { useState } from "react";
 import Link from 'next/link';
 
 import { GiPodium, GiSoccerBall, GiSoccerKick } from "react-icons/gi";
-import { TbSoccerField } from "react-icons/tb";
+import { TbSoccerField, TbScoreboard } from "react-icons/tb";
 import { SiPremierleague } from "react-icons/si";
 // import { PiSealQuestionDuotone } from "react-icons/pi";
 
@@ -77,6 +77,16 @@ const Menu = () => {
                         >
                             <GiSoccerKick className="text-lg group-hover:text-purple-400 transition-colors" />
                             <span className="font-medium">Assist Leaders</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            href='/league-results'
+                            onClick={handleMenuToggle}
+                            className='flex justify-start items-center gap-3 p-3 rounded-xl bg-gray-800 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 text-white transition-all duration-200 hover:translate-x-1 group'
+                        >
+                            <TbScoreboard className="text-lg group-hover:text-orange-400 transition-colors" />
+                            <span className="font-medium">Latest Results</span>
                         </Link>
                     </li>
                     {/* <li className="cursor-pointer border-[1px] bg-gray-800 p-2 rounded-xl mt-4 text-white">
