@@ -72,10 +72,10 @@ const PremierLeagueTable = () => {
                                 <th className="py-4 px-2 sm:px-4 border-b-2 border-gray-200 dark:border-gray-600 text-start w-1/3 text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Team</th>
                                 <th className="py-4 px-2 sm:px-4 border-b-2 border-gray-200 dark:border-gray-600 w-auto text-center text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">PL</th>
                                 <th className="py-4 px-2 sm:px-4 border-b-2 border-gray-200 dark:border-gray-600 w-auto text-center text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">W</th>
-                                <th className="py-4 px-2 sm:px-4 border-b-2 border-gray-200 dark:border-gray-600 w-auto text-center text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">D</th>
-                                <th className="py-4 px-2 sm:px-4 border-b-2 border-gray-200 dark:border-gray-600 w-auto text-center text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">L</th>
+                                <th className="py-4 px-2 sm:px-4 border-b-2 border-gray-200 dark:border-gray-600 w-auto text-center text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider hidden sm:table-cell">D</th>
+                                <th className="py-4 px-2 sm:px-4 border-b-2 border-gray-200 dark:border-gray-600 w-auto text-center text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider hidden sm:table-cell">L</th>
                                 <th className="py-4 px-2 sm:px-4 border-b-2 border-gray-200 dark:border-gray-600 w-auto text-center text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider hidden sm:table-cell">+/-</th>
-                                <th className="py-4 px-2 sm:px-4 border-b-2 border-gray-200 dark:border-gray-600 w-auto text-center text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">GD</th>
+                                <th className="py-4 px-2 sm:px-4 border-b-2 border-gray-200 dark:border-gray-600 w-auto text-center text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider hidden sm:table-cell">GD</th>
                                 <th className="py-4 px-2 sm:px-4 border-b-2 border-gray-200 dark:border-gray-600 w-auto text-center text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Pts</th>
                             </tr>
                         </thead>
@@ -117,14 +117,14 @@ const PremierLeagueTable = () => {
                                     </td>
                                     <td className="py-4 px-2 sm:px-4 text-center text-sm text-gray-700 dark:text-gray-300">{team.played}</td>
                                     <td className="py-4 px-2 sm:px-4 text-center text-sm font-medium text-green-600 dark:text-green-400">{team.won}</td>
-                                    <td className="py-4 px-2 sm:px-4 text-center text-sm font-medium text-gray-600 dark:text-gray-400">{team.draw}</td>
-                                    <td className="py-4 px-2 sm:px-4 text-center text-sm font-medium text-red-600 dark:text-red-400">{team.lost}</td>
+                                    <td className="py-4 px-2 sm:px-4 text-center text-sm font-medium text-gray-600 dark:text-gray-400 hidden sm:table-cell">{team.draw}</td>
+                                    <td className="py-4 px-2 sm:px-4 text-center text-sm font-medium text-red-600 dark:text-red-400 hidden sm:table-cell">{team.lost}</td>
                                     <td className="py-4 px-2 sm:px-4 text-center text-sm text-gray-600 dark:text-gray-400 hidden sm:table-cell">
                                         <span className="font-medium">{team.goalsFor}</span>
                                         <span className="mx-1 text-gray-400">-</span>
                                         <span className="font-medium">{team.goalsAgainst}</span>
                                     </td>
-                                    <td className="py-4 px-2 sm:px-4 text-center">
+                                    <td className="py-4 px-2 sm:px-4 text-center hidden sm:table-cell">
                                         <span className={`inline-flex items-center justify-center min-w-[2.5rem] px-2 sm:px-3 py-1 rounded-lg text-sm font-bold ${team.goalDiff > 0
                                                 ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400'
                                                 : team.goalDiff < 0
