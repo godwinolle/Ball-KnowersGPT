@@ -99,7 +99,7 @@ const FavoriteTeam = () => {
         }
 
         fetchNextGame()
-    }, [favoriteTeam])
+    }, [ favoriteTeam ])
 
     const handleFavoriteTeam = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedFavoriteTeam = premierLeagueTeams.find(team => team.name === e.target.value);
