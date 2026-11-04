@@ -37,11 +37,11 @@ const PlayerGuessingGame = () => {
     const [guess, setGuess] = useState<string>('');
     const [loadingGame, setLoadingGame] = useState<boolean>(false);
     const [loadingQuestion, setLoadingQuestion] = useState<boolean>(false);
-    const [activeInput, setActiveInput] = useState<'question' | 'guess'>('question') 
+    const [activeInput, setActiveInput] = useState<'question' | 'guess'>('question')
     const messagesEndRef = useRef<HTMLDivElement>(null)
 
     const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({behavior: "smooth" })
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
     }
 
     useEffect(() => {
@@ -49,7 +49,7 @@ const PlayerGuessingGame = () => {
     }, [gameState.messages])
 
     const initializeGame = async () => {
-        try{ 
+        try {
             setLoadingGame(true)
             const options = {
                 method: 'GET',
@@ -57,10 +57,10 @@ const PlayerGuessingGame = () => {
                     'Content-Type': 'application/json',
                 }
             }
-    
+
             const response = await fetch(`${GAME_URL}/generate-player`, options)
             const data = await response.json()
-    
+
             if (data.success) {
                 setGameState(prev => ({
                     ...prev,
@@ -68,7 +68,7 @@ const PlayerGuessingGame = () => {
                     playerID: data.playerID
                 }))
             }
-        } catch(error) {
+        } catch (error) {
             console.log('Error', error)
         } finally {
             setLoadingGame(false)
@@ -83,11 +83,11 @@ const PlayerGuessingGame = () => {
         if (gameState.remainingQuestions <= 0 || !question.trim()) return;
 
         if (gameState.player && question.toLowerCase().includes(gameState.player.name.toLowerCase())) {
-            setGameState(prev => ({ ...prev, isGameWon: true })); 
+            setGameState(prev => ({ ...prev, isGameWon: true }));
             return;
         }
 
-        try { 
+        try {
             setLoadingQuestion(true)
             const options = {
                 method: 'POST',
@@ -107,15 +107,15 @@ const PlayerGuessingGame = () => {
                 setGameState(prev => ({
                     ...prev,
                     player: data.player,
-                    messages: [...prev.messages, 
-                        { type: 'question', content: question },
-                        { type: 'answer', content: data.chatBot }
+                    messages: [...prev.messages,
+                    { type: 'question', content: question },
+                    { type: 'answer', content: data.chatBot }
                     ],
                     remainingQuestions: prev.remainingQuestions - 1,
                     isGameWon: prev.isGameWon
                 }));
             }
-        } catch(error) {
+        } catch (error) {
             console.error('Error asking question:', error)
         } finally {
             setLoadingQuestion(false);
@@ -144,45 +144,44 @@ const PlayerGuessingGame = () => {
 
     return (
         <div className="max-w-2xl mx-auto px-4 flex flex-col h-[80vh]">
-            <motion.div 
+            <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className='bg-gradient-to-r from-blue-500 to-purple-600 text-white p-6 rounded-lg mb-4'
             >
                 <h1 className='text-2xl font-bold mb-2'>Mystery Player Challenge 🎮</h1>
-                <p className='text-xs mb-2'>{ `Let's test your ball knowledge and see if you really know the players in the English Premier League.` }</p>
+                <p className='text-xs mb-2'>{`Let's test your ball knowledge and see if you really know the players in the English Premier League.`}</p>
                 <div className='flex items-center justify-between'>
                     <div className='flex items-center gap-4'>
                         <div className='bg-white/20 px-4 py-2 rounded-full text-sm md:text-base'>
-                            <span>Questions Left: { gameState.remainingQuestions }</span>
+                            <span>Questions Left: {gameState.remainingQuestions}</span>
                         </div>
-                        { ( gameState.player && !gameState.isGameWon ) && (
+                        {(gameState.player && !gameState.isGameWon) && (
                             <div className='bg-white/20 px-4 py-2 rounded-full text-sm md:text-base'>
-                                <span>Position: { gameState.player.position }</span>
+                                <span>Position: {gameState.player.position}</span>
                             </div>
-                    ) }
+                        )}
                     </div>
                 </div>
             </motion.div>
 
-            {loadingGame ? (loadingGameState()) : ( 
+            {loadingGame ? (loadingGameState()) : (
                 <div className='flex-1 overflow-y-auto mb-4 rounded-lg bg-gray-50 dark:bg-gray-800/30 p-4'>
                     <AnimatePresence>
-                        { gameState.messages.map((message, index) => (
-                            <motion.div 
-                                key={index} 
-                                className={`flex ${ message.type === 'question' ? 'justify-end' : 'justify-start' }`}
+                        {gameState.messages.map((message, index) => (
+                            <motion.div
+                                key={index}
+                                className={`flex ${message.type === 'question' ? 'justify-end' : 'justify-start'}`}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0 }}
                                 transition={{ duration: 0.5 }}
                             >
-                                <div className={`max-w-[80%] rounded-lg p-4 text-white ${ 
-                                    message.type === 'question' ? 
+                                <div className={`max-w-[80%] rounded-lg p-4 text-white ${message.type === 'question' ?
                                         'bg-blue-500 rounded-br-none'
                                         : 'bg-purple-500 rounded-bl-none'
-                                }`}>
-                                    { message.content }
+                                    }`}>
+                                    {message.content}
                                 </div>
                             </motion.div>
                         ))}
@@ -196,46 +195,46 @@ const PlayerGuessingGame = () => {
                         </div>
                     )}
 
-                    <div ref={ messagesEndRef }/>
+                    <div ref={messagesEndRef} />
                 </div>
-             )}
+            )}
 
-            { !gameState.isGameWon ? (
+            {!gameState.isGameWon ? (
                 <div className='space-y-2'>
                     <div className='flex gap-2 mb-4 text-sm md:text-base'>
-                        <button 
-                            onClick={ () => setActiveInput('question') }
+                        <button
+                            onClick={() => setActiveInput('question')}
                             className={`flex-1 py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors 
-                                ${ activeInput === 'question' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300' }
+                                ${activeInput === 'question' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'}
                                 `}
                         >
                             <FaQuestion /> Ask Question
                         </button>
 
-                        <button 
-                            onClick={ () => setActiveInput('guess') }
+                        <button
+                            onClick={() => setActiveInput('guess')}
                             className={`flex-1 py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors 
-                                ${ activeInput === 'guess' ? 'bg-green-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300' }
+                                ${activeInput === 'guess' ? 'bg-green-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'}
                                 `}
                         >
                             <FaBullseye /> Make Guess
                         </button>
                     </div>
 
-                    <form onSubmit={ handleFormInput } className='relative'>
+                    <form onSubmit={handleFormInput} className='relative'>
                         <div className='text-sm md:text-base flex gap-2 items-center bg-white dark:bg-gray-800 rounded-lg p-2 border border-gray-200 dark:border-gray-700'>
-                            <input 
+                            <input
                                 type='text'
-                                value={ activeInput === 'question' ? question : guess }
-                                onChange={ (e) => activeInput === 'question' ? setQuestion(e.target.value) : setGuess(e.target.value) }
-                                placeholder={ activeInput === 'question' ? 'Ask about the player...' : 'Make your guess...' }
+                                value={activeInput === 'question' ? question : guess}
+                                onChange={(e) => activeInput === 'question' ? setQuestion(e.target.value) : setGuess(e.target.value)}
+                                placeholder={activeInput === 'question' ? 'Ask about the player...' : 'Make your guess...'}
                                 className='flex-1 bg-transparent border-none outline-none p-2 text-gray-700 dark:text-gray-200'
-                                disabled={ loadingQuestion || (activeInput === 'question' && gameState.remainingQuestions <= 0) }
+                                disabled={loadingQuestion || (activeInput === 'question' && gameState.remainingQuestions <= 0)}
                             />
                             <button>
-                                { loadingQuestion ? (<Spinner />) : (
-                                    <FaPaperPlane className='w-4 h-4'/>
-                                ) }
+                                {loadingQuestion ? (<Spinner />) : (
+                                    <FaPaperPlane className='w-4 h-4' />
+                                )}
                             </button>
                         </div>
                     </form>
@@ -253,12 +252,12 @@ const loadingGameState = () => {
             <div className='text-center'>
                 <Spinner />
                 <p className='mt-4 text-gray-600 dark:text-gray-400'>Loading your mystery player...</p>
-            </div> 
-        </div>  
+            </div>
+        </div>
     )
 }
 
-const gameFinishedState = (gameState: GameState ) => {
+const gameFinishedState = (gameState: GameState) => {
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -268,7 +267,7 @@ const gameFinishedState = (gameState: GameState ) => {
             <h2 className='text-xl font-bold mb-2'>
                 🎉 Congratulations!
             </h2>
-            <p>You correctly guessed { gameState.player?.name }!</p>
+            <p>You correctly guessed {gameState.player?.name}!</p>
 
             {/* <button
         //         onClick={resetGame}
@@ -277,7 +276,7 @@ const gameFinishedState = (gameState: GameState ) => {
         //         Play Again
         //     </button> */}
         </motion.div>
-    )  
+    )
 }
 
 export default PlayerGuessingGame
